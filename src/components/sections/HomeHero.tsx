@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { site } from "@/content/site";
 import { usePrefs } from "@/components/providers";
 import { Arrow } from "@/components/ui/Button";
 
@@ -9,7 +8,7 @@ import { Arrow } from "@/components/ui/Button";
 export function HomeHero({ backdrop }: { backdrop: React.ReactNode }) {
   const { t } = usePrefs();
   return (
-    <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-espresso text-cream">
+    <section className="relative isolate flex min-h-[88svh] items-end overflow-hidden bg-espresso text-cream">
       <div className="absolute inset-0 -z-10">
         {backdrop}
         {/* Light scrims only where text sits, so the footage stays clearly visible. */}
@@ -19,8 +18,8 @@ export function HomeHero({ backdrop }: { backdrop: React.ReactNode }) {
       </div>
       <div className="mx-auto w-full max-w-7xl px-5 pb-24 pt-40 [text-shadow:0_1px_2px_rgb(0_0_0/0.35),0_2px_28px_rgb(0_0_0/0.45)] sm:px-8 sm:pb-28">
         <p className="fade-up inline-block rounded-full bg-espresso/70 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-gold-light backdrop-blur-sm">{t("hero.eyebrow")}</p>
-        <h1 className="fade-up mt-5 max-w-5xl text-[2.35rem] leading-[1.04] sm:mt-6 text-cream! sm:text-7xl lg:text-[5.6rem]" style={{ animationDelay: "120ms" }}>
-          {site.heroHeadline.replace(" the World's", " the World's")}
+        <h1 className="fade-up mt-5 max-w-5xl text-balance text-[2.2rem] leading-[1.05] sm:mt-6 text-cream! sm:text-6xl lg:text-[4.6rem]" style={{ animationDelay: "120ms" }}>
+          {t("hero.title")}
         </h1>
         <p className="fade-up mt-5 max-w-2xl text-[0.95rem] leading-relaxed text-cream sm:mt-7 sm:text-xl" style={{ animationDelay: "240ms" }}>
           {t("hero.sub")}
@@ -29,8 +28,8 @@ export function HomeHero({ backdrop }: { backdrop: React.ReactNode }) {
           <Link href="/quote" className="inline-flex items-center justify-center gap-2 rounded-[2px] bg-gold px-8 [text-shadow:none] py-4 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-espresso transition-colors hover:bg-gold-light">
             {t("cta.wholesaleQuote")} <Arrow />
           </Link>
-          <Link href="/shop" className="inline-flex items-center justify-center gap-2 rounded-[2px] border border-cream/50 bg-espresso/20 px-8 backdrop-blur-[2px] py-4 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-cream hover:text-espresso">
-            {t("cta.shop")}
+          <Link href="/samples" className="inline-flex items-center justify-center gap-2 rounded-[2px] border border-cream/50 bg-espresso/20 px-8 backdrop-blur-[2px] py-4 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-cream hover:text-espresso">
+            {t("cta.samples")}
           </Link>
         </div>
       </div>

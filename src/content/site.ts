@@ -8,12 +8,15 @@
 
 const FOUNDED = 2016;
 
+type VideoFiles = { mp4: string; webm?: string; poster: string };
+export type HeroVideoSources = VideoFiles & { mobile?: VideoFiles };
+
 export const site = {
   name: "Belmont Coffee House",
   shortName: "Belmont",
   legalName: "Belmont Coffee House Ltd [confirm registered name]",
   tagline: "Crafted by Origin. Trusted Worldwide.",
-  heroHeadline: "From Highland Farms to the World's Finest Cups",
+  heroHeadline: "Kenyan & East African Coffee, Cupped, Graded and Shipped to Your Port",
   description:
     "Belmont Coffee House is a Nairobi-based exporter of East African specialty and commercial coffee — green beans, roasted coffee and private label — serving importers, roasters and distributors worldwide.",
   /** Production URL, used for canonical links, sitemap and Open Graph. */
@@ -80,12 +83,20 @@ export const site = {
    * Home hero video (muted, looping). Set to null to show the hero photo instead.
    * To replace: export a short clip (8–20 s, 1280–1920 px wide, no audio) to
    * /public/video and update these paths — see GUIDE.md → "Hero video".
+   * Phones get the `mobile` versions; visitors who prefer reduced motion see
+   * the poster with a play button.
    */
   heroVideo: {
     mp4: "/video/hero.mp4",
     webm: "/video/hero.webm",
     poster: "/video/hero-poster.webp",
-  } as { mp4: string; webm?: string; poster: string } | null,
+    /** Portrait crop for phones (about a fifth of the size). Optional. */
+    mobile: {
+      mp4: "/video/hero-mobile.mp4",
+      webm: "/video/hero-mobile.webm",
+      poster: "/video/hero-poster-mobile.webp",
+    },
+  } as HeroVideoSources | null,
 
   /** Analytics — only loads after the visitor accepts cookies. */
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_ID ?? "",

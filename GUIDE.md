@@ -65,6 +65,16 @@ Each entry's `brief` describes the shot to commission (cherries on the branch, h
   ffmpeg -ss 0.2 -i new.mp4 -frames:v 1 public/video/hero-poster.webp
   ```
 
+  Phones get a lighter portrait crop (`hero-mobile.*`, about 0.5 MB). Make those from the same clip. The crop below suits a 16:9 source 768 px tall; adjust `432:768` to the clip's height × 9/16:
+
+  ```bash
+  ffmpeg -i new.mp4 -an -vf "crop=432:768:(iw-432)/2:0" -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 26 -preset slow -movflags +faststart public/video/hero-mobile.mp4
+  ffmpeg -i new.mp4 -an -vf "crop=432:768:(iw-432)/2:0" -c:v libvpx-vp9 -b:v 0 -crf 38 public/video/hero-mobile.webm
+  ffmpeg -ss 0.2 -i new.mp4 -vf "crop=432:768:(iw-432)/2:0" -frames:v 1 public/video/hero-poster-mobile.webp
+  ```
+
+  If you skip the phone versions, delete the `mobile` block in `site.ts → heroVideo` and phones will use the desktop files. Visitors who prefer reduced motion or have data saver on see the poster with a play button instead of autoplay.
+
   Keep it short (8–20 s) and under about 4 MB. To switch back to a still photo, set `heroVideo: null` in `site.ts`.
 - **Team portraits:** the About page currently shows monogram tiles. Replace them in `src/app/about/page.tsx`.
 - **Client logos:** replace the text marks in `src/components/sections/Testimonials.tsx`.

@@ -1,4 +1,4 @@
-import type { LanguageCode } from "@/content/site";
+import { site, type LanguageCode } from "@/content/site";
 
 /**
  * Interface translations (navigation, calls to action, hero, footer).
@@ -19,7 +19,8 @@ const en = {
   "cta.samples": "Request Samples",
   "cta.explore": "Explore our coffees",
   "hero.eyebrow": "East African Coffee Exporter · Nairobi, Kenya",
-  "hero.sub": "Traceable green coffee, roasted coffee and private label from Kenya, Ethiopia, Rwanda, Tanzania and Uganda, graded by licensed liquorers and shipped with complete documentation.",
+  "hero.title": site.heroHeadline as string,
+  "hero.sub": "Traceable green, roasted and private-label coffee from five origins, graded by licensed liquorers and shipped with full documentation.",
   "ui.menu": "Menu",
   "ui.close": "Close",
   "ui.cart": "Cart",
@@ -53,7 +54,8 @@ const fr: Dict = {
   "cta.samples": "Demander des échantillons",
   "cta.explore": "Découvrir nos cafés",
   "hero.eyebrow": "Exportateur de café d'Afrique de l'Est · Nairobi, Kenya",
-  "hero.sub": "Café vert traçable, café torréfié et marque blanche du Kenya, d'Éthiopie, du Rwanda, de Tanzanie et d'Ouganda, classé par des dégustateurs agréés et expédié avec une documentation complète.",
+  "hero.title": "Café du Kenya et d'Afrique de l'Est, dégusté, classé et expédié jusqu'à votre port",
+  "hero.sub": "Café vert, torréfié et en marque blanche de cinq origines, traçable, classé par des dégustateurs agréés et expédié avec une documentation complète.",
   "ui.menu": "Menu",
   "ui.close": "Fermer",
   "ui.cart": "Panier",
@@ -85,7 +87,8 @@ const de: Dict = {
   "cta.samples": "Muster anfordern",
   "cta.explore": "Unsere Kaffees entdecken",
   "hero.eyebrow": "Kaffeeexporteur aus Ostafrika · Nairobi, Kenia",
-  "hero.sub": "Rückverfolgbarer Rohkaffee, Röstkaffee und Private Label aus Kenia, Äthiopien, Ruanda, Tansania und Uganda, von lizenzierten Verkostern klassifiziert und mit vollständigen Dokumenten verschifft.",
+  "hero.title": "Kaffee aus Kenia und Ostafrika – verkostet, klassifiziert und bis in Ihren Hafen verschifft",
+  "hero.sub": "Rückverfolgbarer Roh-, Röst- und Private-Label-Kaffee aus fünf Ursprungsländern, von lizenzierten Verkostern klassifiziert und mit vollständigen Dokumenten verschifft.",
   "ui.menu": "Menü",
   "ui.close": "Schließen",
   "ui.cart": "Warenkorb",
@@ -117,7 +120,8 @@ const zh: Dict = {
   "cta.samples": "索取样品",
   "cta.explore": "探索我们的咖啡",
   "hero.eyebrow": "东非咖啡出口商 · 肯尼亚内罗毕",
-  "hero.sub": "来自肯尼亚、埃塞俄比亚、卢旺达、坦桑尼亚和乌干达的可追溯生豆、烘焙咖啡及贴牌代工，由持证杯测师分级，并附完整出口文件。",
+  "hero.title": "肯尼亚及东非咖啡：杯测、分级，直运至您的港口",
+  "hero.sub": "来自五大产地的可追溯生豆、烘焙咖啡及贴牌代工，由持证杯测师分级，并附完整出口文件。",
   "ui.menu": "菜单",
   "ui.close": "关闭",
   "ui.cart": "购物车",

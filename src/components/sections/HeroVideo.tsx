@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import type { HeroVideoSources } from "@/content/site";
 
 /**
  * Full-bleed looping hero video that keeps playing.
@@ -13,9 +14,15 @@ import { createPortal } from "react-dom";
  *  - restart manually if a browser fails to loop,
  *  - fall back to the poster image if the video can't play at all.
  * A pause button is provided for accessibility (WCAG 2.2.2), and a visitor's
- * choice to pause is respected.
+ * choice to pause is respected. Visitors who prefer reduced motion or have
+ * data saver on see the poster until they press play.
+ *
+ * Phones get a lighter portrait crop via `<source media>`. Browsers that ignore
+ * `media` fall back to the desktop files, so nothing breaks.
  */
-export function HeroVideo({ mp4, webm, poster, label, controlsId }: { mp4: string; webm?: string; poster: string; label: string; controlsId?: string }) {
+const DESKTOP = "(min-width: 768px)";
+
+export function HeroVideo({ mp4, webm, poster, mobile, label, controlsId }: HeroVideoSources & { label: string; controlsId?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const userPaused = useRef(false);
   const [playing, setPlaying] = useState(false);
@@ -32,6 +39,9 @@ export function HeroVideo({ mp4, webm, poster, label, controlsId }: { mp4: strin
     v.muted = true;
     v.defaultMuted = true;
     v.playsInline = true;
+
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    if (saveData || window.matchMedia("(prefers-reduced-motion: reduce)").matches) userPaused.current = true;
 
     const tryPlay = () => {
       if (userPaused.current || document.hidden) return;
@@ -92,26 +102,29 @@ export function HeroVideo({ mp4, webm, poster, label, controlsId }: { mp4: strin
 
   return (
     <>
-      {failed ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={poster} alt="" className="h-full w-full object-cover" />
-      ) : (
+      {/* Poster sits behind the video so each device gets its own still, and it stays if the video fails. */}
+      <picture>
+        {mobile && <source media={DESKTOP} srcSet={poster} />}
+        <img src={mobile?.poster ?? poster} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
+      </picture>
+      {!failed && (
+        // Playback is started from the effect (not `autoPlay`) so reduced-motion visitors never get motion.
         <video
           ref={ref}
-          className="h-full w-full object-cover"
-          autoPlay
+          className="relative h-full w-full object-cover"
           muted
           loop
           playsInline
-          preload="auto"
-          poster={poster}
+          preload="metadata"
           disablePictureInPicture
           disableRemotePlayback
           aria-label={label}
           onError={() => setFailed(true)}
         >
-          {webm && <source src={webm} type="video/webm" />}
-          <source src={mp4} type="video/mp4" onError={() => setFailed(true)} />
+          {webm && <source src={webm} type="video/webm" media={mobile ? DESKTOP : undefined} />}
+          <source src={mp4} type="video/mp4" media={mobile ? DESKTOP : undefined} onError={mobile ? undefined : () => setFailed(true)} />
+          {mobile?.webm && <source src={mobile.webm} type="video/webm" />}
+          {mobile && <source src={mobile.mp4} type="video/mp4" onError={() => setFailed(true)} />}
         </video>
       )}
       {!failed &&
