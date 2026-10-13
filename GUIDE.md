@@ -57,7 +57,15 @@ All photos are royalty-free **CC0 placeholders** (sources in `public/images/CRED
 
 Each entry's `brief` describes the shot to commission (cherries on the branch, hand-picking, drying beds, sacks, roasting, pour-over, port and so on). Next.js automatically resizes images, converts them to AVIF/WebP and lazy-loads them.
 
-- **Hero video:** add `public/video/hero.mp4` (muted, 10–20 s, under 8 MB) and set `heroVideo: "/video/hero.mp4"` in `site.ts`.
+- **Hero video:** the home hero plays `public/video/hero.webm` (Chrome, Firefox, Edge) and `hero.mp4` (Safari, iPhone) on a silent continuous loop, with `hero-poster.webp` shown while it loads. The original file is kept in `media-source/bel-vid.mp4`. To use a new clip, export web versions with:
+
+  ```bash
+  ffmpeg -i new.mp4 -an -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 23 -preset slow -movflags +faststart public/video/hero.mp4
+  ffmpeg -i new.mp4 -an -c:v libvpx-vp9 -b:v 0 -crf 34 public/video/hero.webm
+  ffmpeg -ss 0.2 -i new.mp4 -frames:v 1 public/video/hero-poster.webp
+  ```
+
+  Keep it short (8–20 s) and under about 4 MB. To switch back to a still photo, set `heroVideo: null` in `site.ts`.
 - **Team portraits:** the About page currently shows monogram tiles. Replace them in `src/app/about/page.tsx`.
 - **Client logos:** replace the text marks in `src/components/sections/Testimonials.tsx`.
 - **Certification marks:** use official logos only once you are licensed to display them.

@@ -76,8 +76,16 @@ export const site = {
 
   ports: ["Mombasa (KE)", "Dar es Salaam (TZ)"],
 
-  /** Optional hero video. Put an MP4 in /public/video and set the path, e.g. "/video/hero.mp4". */
-  heroVideo: null as string | null,
+  /**
+   * Home hero video (muted, looping). Set to null to show the hero photo instead.
+   * To replace: export a short clip (8–20 s, 1280–1920 px wide, no audio) to
+   * /public/video and update these paths — see GUIDE.md → "Hero video".
+   */
+  heroVideo: {
+    mp4: "/video/hero.mp4",
+    webm: "/video/hero.webm",
+    poster: "/video/hero-poster.webp",
+  } as { mp4: string; webm?: string; poster: string } | null,
 
   /** Analytics — only loads after the visitor accepts cookies. */
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_ID ?? "",

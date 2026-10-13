@@ -11,6 +11,7 @@ import { Photo } from "@/components/ui/Photo";
 import { Icon } from "@/components/ui/Icon";
 import { Button, Arrow } from "@/components/ui/Button";
 import { HomeHero } from "@/components/sections/HomeHero";
+import { HeroVideo } from "@/components/sections/HeroVideo";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { ProductCard } from "@/components/coffee/ProductCard";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -27,9 +28,7 @@ export default function HomePage() {
       <HomeHero
         backdrop={
           site.heroVideo ? (
-            <video className="h-full w-full object-cover" autoPlay muted loop playsInline poster="/images/hero-drying-sunset.webp">
-              <source src={site.heroVideo} type="video/mp4" />
-            </video>
+            <HeroVideo {...site.heroVideo} label="Belmont coffee: from highland farms and harvest to cupping and the port" controlsId="hero-video-controls" />
           ) : (
             <Photo name="hero" priority className="kenburns" />
           )

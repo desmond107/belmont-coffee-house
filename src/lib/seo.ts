@@ -35,7 +35,7 @@ export const organizationLd = () => ({
   name: site.name,
   legalName: site.legalName,
   url: site.url,
-  logo: absoluteUrl("/icon.svg"),
+  logo: absoluteUrl("/belmont-logo.jpg"),
   foundingDate: String(site.founded),
   description: site.description,
   email: site.contact.email,

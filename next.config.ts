@@ -15,7 +15,11 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 828, 1080, 1280, 1600, 1920],
   },
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      // Hero video: cache for a week so repeat visits start instantly.
+      { source: "/video/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }] },
+    ];
   },
 };
 

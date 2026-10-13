@@ -31,7 +31,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     datePublished: post.date,
     dateModified: post.date,
     author: { "@type": "Organization", name: post.author },
-    publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: absoluteUrl("/icon.svg") } },
+    publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: absoluteUrl("/belmont-logo.jpg") } },
     mainEntityOfPage: absoluteUrl(`/journal/${post.slug}`),
   };
   return (
